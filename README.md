@@ -64,7 +64,7 @@ open steam://nav/console
 In the Steam client's terminal, you can now manually install the Windows versions of games you own, for example to install BioShock 7670:
 ```
 @sSteamCmdForcePlatformType windows
-app_update 7670
+app_install 7670
 ```
 Alas, though - there is instability to this Windows configuration when established after launch and without full Steam Play logic built in. First off, if a game has a native/macOS depot of any kind, even an empty one (and BioShock 7670 is just such a game), the next time the Steam client is run and before you get a chance to set `@sSteamCmdForcePlatformType windows` you may find the background updating process has emptied or "reaped" the installation folder or replaced it with the macOS version.
 
@@ -149,7 +149,7 @@ Since Step 1 you already have the Play button available in your Library for inst
 Your first step is to copy the `scripts` directory of this project into a new folder in your your shared library
 ```
 mkdir "~/Library/Application Support/CrossOver/Bottles/<wine-bottle>/drive_c/Program Files (x86)/Steam/steamapps/common/Kaon"
-cp scripts/* "`~/Library/Application Support/CrossOver/Bottles/<wine-bottle>/drive_c/Program Files (x86)/Steam/steamapps/common/Kaon"
+cp scripts/* "~/Library/Application Support/CrossOver/Bottles/<wine-bottle>/drive_c/Program Files (x86)/Steam/steamapps/common/Kaon"
 ```
 This places the `launch_with_log.sh` and `launch_crossover.sh` scripts into a known location which is consistent to reference from other game directories in the shared library for the next step where you add additional launch options to games you want to wrap up.
  
