@@ -123,6 +123,7 @@ class MainWindow:
         # String vars
         self.idVar = tk.StringVar()
         self.nameVar = tk.StringVar()
+        self.osListVar = tk.StringVar()
         self.sortAsVar = tk.StringVar()
         self.developerVar = tk.StringVar()
         self.publisherVar = tk.StringVar()
@@ -142,6 +143,7 @@ class MainWindow:
         # Label specific
         self.rightIdFrame = Frame(self.rightContainerFrame)
         self.rightNameFrame = Frame(self.rightContainerFrame)
+        self.rightOsListFrame = Frame(self.rightContainerFrame)
         self.rightSortAsFrame = Frame(self.rightContainerFrame)
         self.rightDeveloperFrame = Frame(self.rightContainerFrame)
         self.rightPublisherFrame = Frame(self.rightContainerFrame)
@@ -186,6 +188,13 @@ class MainWindow:
             self.rightNameFrame,
             width=40,
             textvariable=self.nameVar,
+        )
+
+        self.osListLabel = Label(self.rightOsListFrame, text="OSList:")
+        self.osListEntry = Entry(
+            self.rightOsListFrame,
+            width=40,
+            textvariable=self.osListVar,
         )
 
         self.sortAsLabel = Label(self.rightSortAsFrame, text="Sort As:")
@@ -281,6 +290,8 @@ class MainWindow:
         self.idEntry.pack(side="right")
         self.nameLabel.pack(side="left")
         self.nameEntry.pack(side="right")
+        self.osListLabel.pack(side="left")
+        self.osListEntry.pack(side="right")
         self.sortAsLabel.pack(side="left")
         self.sortAsEntry.pack(side="right")
         self.developerLabel.pack(side="left")
@@ -310,6 +321,7 @@ class MainWindow:
             side="top", fill="both", pady=(0, config.ENTRY_PADDING)
         )
         self.rightNameFrame.pack(side="top", fill="both", pady=config.ENTRY_PADDING)
+        self.rightOsListFrame.pack(side="top", fill="both", pady=config.ENTRY_PADDING)
         self.rightSortAsFrame.pack(side="top", fill="both", pady=config.ENTRY_PADDING)
         self.rightDeveloperFrame.pack(
             side="top", fill="both", pady=config.ENTRY_PADDING
@@ -531,6 +543,7 @@ class MainWindow:
         appID = currentItemData["values"][-1]
         # Fetched data
         appName = self.get_data_from_section(appID, "common", "name")
+        appOsList = self.get_data_from_section(appID, "common", "oslist")
         appSortAs = self.get_data_from_section(appID, "common", "sortas")
         appDeveloper = self.get_data_from_section(
             appID, "extended", "developer"
@@ -565,6 +578,14 @@ class MainWindow:
                     int(self.idVar.get()), self.nameVar.get(), "common", "name"
                 ),
                 self.sortAsVar.set(self.nameVar.get()),
+            ),
+        )
+
+        self.set_var_no_callback(
+            self.osListVar,
+            appOsList,
+            lambda _a, _b, _c: self.set_data_from_section(
+                int(self.idVar.get()), self.osListVar.get(), "common", "oslist"
             ),
         )
 
@@ -915,7 +936,6 @@ class MainWindow:
             execFrame,
             textvariable=execVar,
             width=55,
-            state="readonly",
         )
         execButton = Button(
             execFrame,
@@ -930,7 +950,6 @@ class MainWindow:
             wkngDirFrame,
             textvariable=wkngDirVar,
             width=55,
-            state="readonly",
         )
         wkngDirButton = Button(
             wkngDirFrame,
@@ -1164,6 +1183,7 @@ class MainWindow:
 
     def create_launch_menu_window(self):
         appName = self.nameVar.get()
+        appOsList = self.osListVar.get()
         appID = int(self.idVar.get())
 
         self.launchMenuWindow = tk.Toplevel(self.window)

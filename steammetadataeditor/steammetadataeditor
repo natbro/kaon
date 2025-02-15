@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/usr/bin/env python3 /opt/sme/main.py $@
+/usr/bin/env /usr/local/bin/python3.11 /Users/natbro/code/github/Steam-Metadata-Editor/src/main.py $@
