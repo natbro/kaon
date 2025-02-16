@@ -83,6 +83,10 @@ Fear not - we can get around this by creating the `steam_dev.cfg` file noted in 
 ## 2. Connect macOS and CrossOver Steam Libraries
 For now, this strange step is the most straightforward way to align the paths between the macOS Steam client and the Windows + CrossOver Steam client so games can communicate with the Windows + CrossOver Steam client for SteamWorks and ownership validation without per-game path reconciliation parameters passed to the wrapping scripts.
 
+> Launch your macOS Steam client and go to Steam > Preferences... and choose Storage. In Storage, in the Library drop-down list, choose `(+) Add Drive` option, and go to bottle's Steam folder (⌘⇧G, paste `~/Library/Application Support/CrossOver/Bottles/<wine-bottle>/drive_c/Program Files (x86)/Steam/`, press enter), and click `open` in the right bottom corner of the folder picker
+
+<details>
+	<summary>Previous workaround</summary>
 The end-goal you are after is to have a secondary non-default library for your macOS Steam client where you install Windows games which matches your Windows + CrossOver Steam client's default library - you're looking to eventually have your macOS Steam client's `~/Library/Application Support/Steam/steamapps/libraryfolders.vdf` file  look something like the following:
 
 ```
@@ -142,7 +146,7 @@ rm steam.dummy.sparseimage
 ```
 
 > Note: it doesn't appear that you can skip the dummy volume step by just manually adding this entry to your `libraryfolders.vdf` file - the Steam client does a little bit of validation or checksumming (?) of some kind when setting up a new library and seems to wipe out additional library entries in `libraryfolders.vdf` which it didn't initially make itself. Happy to be proven wrong here, this step is annoying.
-
+</details>
 ## 3. Functioning Play Buttons
 Since Step 1 you already have the Play button available in your Library for installed Windows games, but it's not doing what you want because it's trying to launch the Windows executable from one of the developer-provided launch options in the application's metadata/manifest/configuration. But because of Step 2 you have aligned the paths which the macOS Steam client thinks of as truth and the paths which the Windows + CrossOver Steam client thinks of as truth, so you're ready to get things wired up.
 
