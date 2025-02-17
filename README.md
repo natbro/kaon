@@ -61,11 +61,15 @@ or if Steam is already running, issue the following from a terminal:
 ```
 open steam://nav/console
 ```
-In the Steam client's terminal, you can now manually install the Windows versions of games you own, for example to install BioShock 7670: (paste commands one line at a time)
+or pasting in Spotlight `steam://nav/console`
+
+In the Steam client's console (new button in the top part of main window), you can now manually install the Windows versions of games you own, for example to install BioShock 7670: (paste commands one line at a time)
 ```
 @sSteamCmdForcePlatformType windows
+config_refresh
 app_install 7670
 ```
+The `config_refresh` command makes Steam UI to take changes and show `Play` button
 Alas, though - there is instability to this Windows configuration when established after launch and without full Steam Play logic built in. First off, if a game has a native/macOS depot of any kind, even an empty one (and BioShock 7670 is just such a game), the next time the Steam client is run and before you get a chance to set `@sSteamCmdForcePlatformType windows` you may find the background updating process has emptied or "reaped" the installation folder or replaced it with the macOS version.
 
 Additionally, you do not have the ability to install other games through the normal library installation UI - that UI was configured for platform type at launch, before the platform override ConVar was set by you in the console - you are stuck doing manual `app_install` installs from SteamCmd or from the console.
